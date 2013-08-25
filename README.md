@@ -1,6 +1,6 @@
-# codeigniter_fireblock
+# CodeIgniter Fireblocks
 
-Block based layout system for Codeigniter
+Block based layout system for CodeIgniter
 
 The layout module provides a block based rendering system for Codeigniter. 
 A layout defines an HTML page and breaks each part of that page down to individual structural and content blocks.
@@ -32,3 +32,10 @@ There are areas in the code that are not ready for public sites.
 This was originally written to host internal sites where trusted people controlled the content.
 Hooks are put in block rending for future output filtering.
 Look at the Block_abstract rendering (_toHTML) and make sure it's cleaning rendered output to your needs.
+
+#### Other warning
+
+Remember, PHP renders everything at one big script. So as blocks are rendered, data attributes can conflict between blocks if you are not careful.
+If you start seeing 'strange' stuff in your output, look at the property names you are using. Using the $B->getVarname() will work
+better than the $B->varname syntax. Maybe in future I will find way to wrap block instances in their own namespaces or provide a better global path
+to reference block data.

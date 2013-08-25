@@ -329,9 +329,8 @@ class Block_abstract {
         return (empty($tdata))? $rdata: $tdata;
     }    
 
-    // Set/Get block name (Used when block is refernced by a parent in a template or view)
     /**
-     * Set Block Name
+     * Set Block Name and default alias
      * 
      * @param string $name
      * @return \Block_abstract 
@@ -341,6 +340,13 @@ class Block_abstract {
     /** Get Block Name */
     public function getName() {return strval($this->_blockname); }
 
+    /**
+     * Defines a child block name that is different from the block instance name.
+     * This is the name used to reference the block in templates.
+     * 
+     * @param string $name
+     * @return \Block_abstract 
+     */
     public function setAlias($name) {$this->_alias = $name; return $this;}
     public function getAlias() {return $this->_alias; }
     
@@ -396,7 +402,6 @@ class Block_abstract {
             $blk->setInChildren($var,$value,TRUE);
         }
     }
-
 
     /**
      * Return Root (Top Parent) block
@@ -510,7 +515,7 @@ class Block_abstract {
      */
     protected function _toHTML() {
 
-        // Render all child blocks as html into the _data array by block name
+        // Render all child blocks as html into the _data array by block name (alias)
         if(!empty($this->_blockList)) {
             // Call each block and get it's HTML output into parent block _data collection
 	    // Disabled blocks still load _data with blanks. That way the _data block will contain a valid block key.
@@ -520,7 +525,7 @@ class Block_abstract {
             }
         }
 
-        // Render the  View. If none defined, output the rendered blocks
+        // Render the View. If no template defined, output the rendered blocks
         if(!empty($this->_template)) {
             // Render the template using the defined engine
             $this->appendBody($this->_layoutLib->callEngine($this->_engine,$this));

@@ -40,21 +40,7 @@ class Block_html extends Block_abstract {
     public function addHtml($html) {
         $this->_data['html'] .= $html;
     }
-    
-    // Render text (and any sub-blocks)
-    protected function  no_toHTML() {
-        $beg = ''; $end = '';
-        if(!empty($this->_data['wrap'])) {
-            $beg = '<' . $this->_data['wrap'] . ' id="' . $this->getAlias() . '" class="'.$this->_data['class'].'" >';
-            $end = '</' . $this->_data['wrap'] . '>';
-        }
-        $html = $beg . $this->_data['html'] . $end;
-
-
-        $this->setBody($html);
-        return(parent::_toHTML());
-    }
-    
+        
     public function _toHtml() {
         $htmlout = '';
         $beg = ''; $end = '';

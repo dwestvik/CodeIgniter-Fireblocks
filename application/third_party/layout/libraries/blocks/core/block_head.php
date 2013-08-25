@@ -4,6 +4,15 @@
  * 
  * Define and inject items into page head
  * 
+ * If No template defined, each "section" (js,css,style,meta) will just be rendered in order.
+ * If a template is defined, it must reference these data items
+ * - css
+ * - js
+ * - title
+ * - links
+ * - meta
+ * - style
+ * 
  * - Change to use 'title' and 'page-title' on <title> block
  * - Currently using XHTML style tags. (Future, change to HTML5)
  */
@@ -34,7 +43,7 @@ class Block_head extends Block_abstract {
     }
     
     /**
-     * Add Javascript reverence
+     * Add Javascript reference
      * @param type $jsName 
      */
     public function addJs($jsName) {
@@ -56,6 +65,11 @@ class Block_head extends Block_abstract {
         $this->_linkList[] = $link;
     }
 
+    /**
+     * Add meta tag to <head>
+     * 
+     * @param array $metadata Array of name/value pairs
+     */
     public function addMeta($metadata) {
         $meta = '<meta ';        
         foreach($metadata as $_var=>$_value) {
@@ -65,10 +79,10 @@ class Block_head extends Block_abstract {
         $this->_metaList[] = $meta;
     }
 
-
     
     /**
      * Add manual style enteries. 
+     * 
      * @param array $css - 1 line per element
      */
     public function addStyle($css) {
@@ -78,7 +92,6 @@ class Block_head extends Block_abstract {
     }
     
         
-    // Render Functions 
     private function renderList($list) {
         $html = '';
         foreach($list as $Link) {
@@ -87,13 +100,16 @@ class Block_head extends Block_abstract {
         return $html;        
     }
 
-    
+    /** Render Javascript includes */
     public function renderJs() { return $this->renderList($this->_jsList); }
     
+    /** Render CSS includes */
     public function renderCss() {return $this->renderList($this->_cssList);   }   
 
+    /** Render <link> */
     public function renderLinks() {return $this->renderList($this->_linkList);  }
 
+    /** Render embedded <style> within <head> [May deprecate] */
     public function renderStyles() {
         $styles = '';
         if(!empty($this->_styleList)) {
@@ -102,10 +118,11 @@ class Block_head extends Block_abstract {
         return $styles;
     }
     
+    /** Render <meta> tags */
     public function renderMeta() {return $this->renderList($this->_metaList); }
     
     
-    // Render Page header title.
+    /** Render <title> tag in <head> */
     public function renderTitle() {
         $sep = '';
         $title = $this->getData('apptitle');
@@ -115,7 +132,12 @@ class Block_head extends Block_abstract {
          
          return $html;
     }
-    
+    /**
+     * Render <head> content.
+     * Render each section into _data then render via standard method.
+     * 
+     * @return string HTML rendered <head> output
+     */
     protected function _toHTML() {
         // Render CSS and JS tags into data (As if they where child blocks)
         $this->_data['css'] = $this->renderCss();

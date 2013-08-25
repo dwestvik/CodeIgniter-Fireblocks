@@ -1,8 +1,8 @@
 <head>
-    <?php echo $D['title'] ?>
-    <?php echo $D['meta'] ?>
-    <?php echo $D['links'] ?>
-    <?php echo $D['css'] ?>
-    <?php echo $D['js'] ?>   
-    <?php echo $D['style'] ?>
+    <?php echo $B->getTitle() ?>
+    <?php echo $B->meta ?>
+    <?php echo $B->links ?>
+    <?php echo $B->css ?>
+    <?php echo $B->js ?>   
+    <?php echo $B->style ?>
 </head>
