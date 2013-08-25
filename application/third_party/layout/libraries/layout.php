@@ -21,6 +21,7 @@ class layout {
         $ci = &get_instance();
         $ci->load->helper('blocks');
         $this->layoutConfig = $cfg; // Config passed or most likley from config/layout.php 
+        if(isset($ci->session)) $this->_sess = $ci->session;
     }
     
     public function setConfig($cfg) {
@@ -45,10 +46,12 @@ class layout {
         // Session Data 
         if(substr($pval, 0,1) == '@') {
             // Get data from session
-            $tag = trim(substr($pval,1));
-            @$temp =  $ci->session->userdata($tag);
-            if(empty($temp)) {$temp = '';}
-            $pval = $temp;
+            if(!empty($this->_sess)) {
+                $tag = trim(substr($pval,1));
+                @$temp =  $this->_sess->userdata($tag);
+                if(empty($temp)) {$temp = '';}
+                $pval = $temp;
+            }
         }
         
         // Now, look for macros
@@ -58,8 +61,7 @@ class layout {
             @$temp = $this->_macros[$tag];
             if(empty($temp)) {$temp = '';}
             $pval = $temp;
-        }
-        
+        }        
         
         return($pval);
     }
@@ -92,13 +94,27 @@ class layout {
         }
     }
 
-    // For now, just call the loadPage handler
+    
+    /**
+     * Load Layout Updates
+     * For now, just call the loadPage handler
+     * 
+     * @param string $handle
+     * @param string $layoutFile
+     * @return \layout 
+     */
     public function loadUpdates($handle,$layoutFile='layout') {
         $this->loadPage($handle,$layoutFile);
         return $this;
     }
 
-    // New 'loadLayout' call. Now, just call 'loadPage'
+    
+    /**
+     * New 'loadLayout' call. Now, just call 'loadPage'
+     * @param string $handle
+     * @param string $layoutFile
+     * @return \layout 
+     */
     public function loadLayout($handle='default',$layoutFile='layout') {
         $this->loadPage($handle,$layoutFile);
         return $this;
@@ -322,7 +338,7 @@ class layout {
         $ci = & get_instance();
         foreach($ci as $_value) {
             if(is_object($_value)) {
-                if(is_a($_value,'core_block')) {
+                if(is_a($_value,'Block_abstract')) {
                     $blks[] = $_value->getName();
                 }
             }
@@ -340,7 +356,7 @@ class layout {
         $ci = & get_instance();
         foreach($ci as $_value) {
             if(is_object($_value)) {
-                if(is_a($_value,'core_block')) {
+                if(is_a($_value,'Block_abstract')) {
                     $blks[$_value->getName()] = $_value;
                 }
             }
@@ -349,6 +365,13 @@ class layout {
     }
 
     //********************* RENDERING ENGINES **************************
+    /**
+     * Call Rendering Engine (Driver)
+     * 
+     * @param string $engine
+     * @param Block_abstract $block
+     * @return string  Rendered Output from Block 
+     */
     public function callEngine($engine,$block) {
         $ci =& get_instance();        
         $ci->load->driver('layout_engine');
@@ -358,22 +381,13 @@ class layout {
         return $content;
     }
     
-
     /**
-     * Return the raw block data Array
-     * @param <type> $block 
+     * Set Engine in each child
+     *
+     * @param block_abstract $block
+     * @param string $engine
+     * @param string $isChild 
      */
-    public function xdataEngine($block) {
-        $ci =& get_instance();
-        $html = 'dataEngine: ';
-        foreach($block->getDataArray() as $_key=>$_data) {
-            $html .= $_data . ' ';
-        }
-        return $html;
-    }
-
-    
-    // Set Engine in each child
     public function setChildEngines($block,$engine,$isChild=FALSE) {
         if($isChild) {$block->setEngine($engine);}
         foreach($block->getChildren() as $blk) {

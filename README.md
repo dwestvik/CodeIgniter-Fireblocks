@@ -20,11 +20,15 @@ This lets you define a 'default' layout for all your pages then write smaller up
 
 All blocks extend the `Block_abstract` class which contains many protected hook points to customize the block's operation. 
 
-
 ### Installation
 
 Code contained in third_party/layout. Demo controller and layout/model.
 
 [See wiki for developer guide](https://github.com/dwestvik/CodeIgniter-Fireblocks/wiki)
 
-Update application/config/config.php to include `'http://localhost/fireblock/'`
+#### Not Safe!
+
+There are areas in the code that are not ready for public sites.
+This was originally written to host internal sites where trusted people controlled the content.
+Hooks are put in block rending for future output filtering.
+Look at the Block_abstract rendering (_toHTML) and make sure it's cleaning rendered output to your needs.
