@@ -1,0 +1,30 @@
+# Designed to drop on top of base CI install
+.DS_Store
+user_guide
+nbproject
+system
+wiki
+index.php
+
+# I dont think I have any core CI code. If there is, remove this ignore
+license.txt
+
+application/.htaccess
+application/index.html
+application/cache/*
+application/core/*
+application/config/*
+!application/config/config_demo.php
+application/errors/*
+application/hooks/*
+application/language/*
+application/logs/*
+application/controllers/*
+!application/controllers/fireblocks.php
+application/helpers/*
+application/libraries/*
+application/models/*
+application/views/*
+application/third_party/index.html
+ignore
+

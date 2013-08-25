@@ -26,3 +26,5 @@ All blocks extend the `Block_abstract` class which contains many protected hook 
 Code contained in third_party/layout. Demo controller and layout/model.
 
 [See wiki for developer guide](https://github.com/dwestvik/CodeIgniter-Fireblocks/wiki)
+
+Update application/config/config.php to include `'http://localhost/fireblock/'`

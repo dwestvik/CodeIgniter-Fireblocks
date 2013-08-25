@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Fireblock Page layout system -->
+<layout>
+    <config>
+    </config>
+    <pages>
+        <default> <!-- Default page layout - loaded by $this->layout->loadLayout() -->
+            <!-- Default page block. This is the main parent block for a page. -->
+            <block type="core/block_page" name="page" engine="view" template="templates/page_1col" >
+                <!-- html head block. Defines content for <head> section of page -->
+                <block type="core/block_head" name="htmlhead" template="templates/html_head">
+                    <!-- property sets values in block. Calls 'setName(value)' in core_block -->
+                    <property name="apptitle" value="Application Title" />
+                    <property name="csspath" value="/fireblock/assets/themes/basic" />
+                    <property name="jspath" value="/fireblock/assets/themes/js" />
+
+                    <!-- Calls method in current block being defined. Passes attributes to method -->
+                    <action method="addCss" href="style" media="screen" />
+                    <action method="addCss" href="nav" media="screen" />
+                    <action method="addJs" src="jquery-1.7.min.js" />
+                    <action method="addJs" src="nav.js" />
+                    
+                    <action method="addMeta"><name>author</name><content>DWestvik</content></action>
+                    <!-- Refresh example <action method="addMeta"><http-equiv>refresh</http-equiv><content>4</content></action> -->
+                </block>
+                                
+                <!-- Header -->
+                <block type="core/block_view" name="header" template="templates/header">
+                    <property name="header_text" value="Codeigniter Block Framework" />
+                    <block type="core/block_img" name="applogo" style="width: 70px;" path="/fireblock/assets/img" alt="Application Logo" src="fireblock.png" />
+                </block>
+                                
+                <!-- content placeholders [Parent Blocks]  (Allow for 3 column content)-->
+                <block type="core/block_view" name="page_top"></block>
+                <block type="core/block_view" name="left_col"></block>
+                <block type="core/block_view" name="content"></block>
+                <block type="core/block_view" name="right_col"></block>
+                <block type="core/block_view" name="page_bottom"></block>
+                
+                <!-- footer -->
+                <block type="core/block_text" name="footer">
+                    <action method="setText" arg="Fireblocks" />
+                </block>
+            </block>
+        </default>
+        
+        <!-- home_page selector - Used for layout update -->
+        <home_page>  
+            <!-- Update html header -->
+            <reference name="htmlhead">  
+                <property name="pagetitle" value="Home Page" />
+                <action method="addMeta"><name>keywords</name><content>Codeignighter,Fireblock</content></action>
+            </reference>
+            
+            <reference name="header">
+                <action method="enabled" arg="0" />
+            </reference>
+                        
+
+            <!-- Define template AND build any subblocks -->
+            <reference name="content">
+                <block type="core/block_msglist" name="msg" />                
+                <block type="core/block_cms" name="cmscontent">
+                    <model type="demo_cms_provider" name="cms" />
+                    <!-- Can set CMS content key here <action method="setContentId" arg="home_page" /> -->
+                </block>
+                <block type="core/block_html" name="test_html" wrap="div" class="my_html" >
+                    <action method="setHtml" arg="Example of text Set in layout.xml" />
+                </block>
+            </reference>
+        </home_page>
+    </pages>
+</layout>

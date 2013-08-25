@@ -1,0 +1,22 @@
+<!DOCTYPE html >
+<html>
+    {$htmlhead}
+    <body>
+        <div id="page_wrap">
+            <h1>Using RAIN Template</h1>
+            <div id="page_header">{$header}</div>
+            <div class="nav_bar">{$navbar}</div>
+            <div id="main_content">
+                    {$content}
+            </div>
+            <div id="page_footer">
+                <div class="bottom">{$footer}</div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+
+
+
