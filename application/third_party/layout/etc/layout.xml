@@ -51,23 +51,32 @@
                 <property name="pagetitle" value="Home Page" />
                 <action method="addMeta"><name>keywords</name><content>Codeignighter,Fireblock</content></action>
             </reference>
-            
-            <reference name="header">
-                <action method="enabled" arg="0" />
-            </reference>
                         
-
             <!-- Define template AND build any subblocks -->
             <reference name="content">
+                <!-- <property name="template" value="content" /> -->
+                <!-- <model type="example" name="example" /> -->
                 <block type="core/block_msglist" name="msg" />                
                 <block type="core/block_cms" name="cmscontent">
+                    <!-- Bind model to block. Used by block and/or template for rendering -->
                     <model type="demo_cms_provider" name="cms" />
-                    <!-- Can set CMS content key here <action method="setContentId" arg="home_page" /> -->
+                    <!-- Can set CMS content key here -->
+                    <!-- <action method="setContentId" arg="home_page" /> -->
                 </block>
                 <block type="core/block_html" name="test_html" wrap="div" class="my_html" >
                     <action method="setHtml" arg="Example of text Set in layout.xml" />
                 </block>
+                <block type="core/block_view" name="static" template="static/demo1">
+                </block>
             </reference>
         </home_page>
+        <static_page>
+            <reference name="page_top">
+                <block type="core/block_html" name="test_html" wrap="div" class="my_html" >
+                    <!-- <action method="setHtml" arg="^layout_version" /> -->
+                    <property name="html" value="^layout_version" />
+                </block>                
+            </reference>
+        </static_page>
     </pages>
 </layout>

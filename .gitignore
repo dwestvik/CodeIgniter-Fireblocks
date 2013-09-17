@@ -1,4 +1,5 @@
 # Designed to drop on top of base CI install
+.*.yml
 .DS_Store
 user_guide
 nbproject
