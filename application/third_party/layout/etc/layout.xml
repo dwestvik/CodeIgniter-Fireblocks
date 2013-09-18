@@ -59,7 +59,7 @@
                 <block type="core/block_msglist" name="msg" />                
                 <block type="core/block_cms" name="cmscontent">
                     <!-- Bind model to block. Used by block and/or template for rendering -->
-                    <model type="demo_cms_provider" name="cms" />
+                    <model type="mage_cms_provider" name="cms" />
                     <!-- Can set CMS content key here -->
                     <!-- <action method="setContentId" arg="home_page" /> -->
                 </block>
