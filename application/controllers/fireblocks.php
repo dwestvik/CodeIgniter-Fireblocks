@@ -13,7 +13,6 @@ class Fireblocks extends CI_Controller {
         $this->load->add_package_path(APPPATH.'third_party'.'/layout/');
         $this->load->library('layout');  // Can be autoloaded.
         $this->load->config('layout');  // Can be autoloaded.
-        $this->load->helper('simplequery');
     }
     
     
@@ -28,7 +27,7 @@ class Fireblocks extends CI_Controller {
         $this->layout->loadLayout()->loadUpdates('home_page');
         Block('content')->setBody('<h1>CMS Demo Page</h1>');
         Block('msg')->addWarning('Warning Message in "msg" block');
-        Block('cmscontent')->setContentId('tradeshow-list');
+        Block('cmscontent')->setContentId('home_page');
         Block('footer')->addText(' ' . $this->config->item('layout_version'));
         $this->layout->render();
     }
