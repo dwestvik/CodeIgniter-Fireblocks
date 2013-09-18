@@ -1,5 +1,5 @@
 # Designed to drop on top of base CI install
-.*.yml
+*.yml
 .DS_Store
 user_guide
 nbproject
@@ -11,6 +11,7 @@ index.php
 license.txt
 
 application/.htaccess
+application/etc/*
 application/index.html
 application/cache/*
 application/core/*
