@@ -14,18 +14,16 @@ class Block_text extends Block_abstract {
 
     public function  __construct() {
         parent::__construct();
-        $this->_data['text'] = '';
+        $this->setText('');
     }
 
-    public function addText($txt,$before=FALSE) {
-        if($before) {
-            $this->setText($txt . $this->getText());
-        } else {
+    public function prependText($txt) {
+        $this->setText($txt . $this->getText());
+    }
+    
+    public function addText($txt) {
             $this->setText($this->getText() . $txt);
-        }
     }
-
-    //public function configValue($cfg) {$ci=&get_instance(); $this->setText($ci->config->item($cfg));}
     
     public function getText() {
         return $this->getData('text');
@@ -39,12 +37,5 @@ class Block_text extends Block_abstract {
     protected function  _toHTML() {
         $this->_body = $this->getText();
         return($this->_body);
-        //return(parent::_toHTML());
     }
-
-    // Block can act like a string.
-    public function  __toString() {
-        return $this->toHTML();
-    }
-
 }

@@ -3,7 +3,7 @@
  * Block_msglist
  * 
  * Used to output result messages
- *
+ * Set classes to 'bootstrap' based messages
  * @author dane.westvik
  */
 using_block('core/block_abstract');
@@ -21,11 +21,11 @@ class Block_msglist extends Block_abstract {
     private $_messages = array();
 
     private $_classes = array(
-        'default'=>'message_default',
-        'warn'=>'message_warn',
-        'error'=>'message_error',
-        'success' => 'message_success',
-        'notice' => 'message_notice');
+        'default'=>'text-default',
+        'warn'=>'text-warning',
+        'error'=>'text-error',
+        'success' => 'text-success',
+        'info' => 'text-info');
     /**
      * First level html tag name for messages html output
      *
@@ -77,8 +77,8 @@ class Block_msglist extends Block_abstract {
         $this->add($txt,'error');
     }
 
-    public function addNotice($txt) {
-        $this->add($txt,'notice');
+    public function addInfo($txt) {
+        $this->add($txt,'info');
     }
     
     public function hasMessages() {

@@ -556,7 +556,7 @@ display: none;
     padding-bottom: 10px;
 }
 
-.message_default {
+.text-default {
 	background-color: #f7f7f7;
 	border-top: 1px solid #cccccc;
 	border-bottom: 1px solid #cccccc;
@@ -566,7 +566,7 @@ display: none;
 	font-size: 13px;
 	font-weight: bold;
 }
-.message_notice {
+.text-notice {
 	background-color: #eceff6;
 	border-top: 1px solid #d4dae8;
 	border-bottom: 1px solid #d4dae8;
@@ -576,7 +576,7 @@ display: none;
 	font-size: 13px;
 	font-weight: bold;
 }
-.message_warn {
+.text-warning {
 	background-color: #fff9d7;
 	border: 1px solid #e2c822;
 	color: #333333;
@@ -585,7 +585,7 @@ display: none;
 	font-size: 13px;
 	font-weight: bold;
 }
-.message_error {
+.text-error {
 	background-color: #ffebe8;
 	border-top: 1px solid #dd3c10;
 	border-bottom: 1px solid #dd3c10;
@@ -596,7 +596,7 @@ display: none;
 	font-weight: bold;
 }
 
-.message_success {
+.text-success {
 	background-color: #dcffc8;
 	border-top: 1px solid #80ff80;
 	border-bottom: 1px solid #80ff80;
