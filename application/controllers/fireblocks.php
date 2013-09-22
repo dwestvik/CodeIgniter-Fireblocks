@@ -18,7 +18,7 @@ class Fireblocks extends CI_Controller {
     
     public function index() {
         $this->layout->loadLayout();
-        Block('content')->setBody('<h1>Content Block</h1><a href="fireblocks/cms">CMS Page</a>');
+        Block('content')->setBody('<h1>Content Block</h1><a href="/fireblock?fireblocks/cms">CMS Page</a>');
         Block('footer')->addText(' ' . $this->config->item('layout_version'));
         $this->layout->render();
     }
@@ -32,6 +32,12 @@ class Fireblocks extends CI_Controller {
         $this->layout->render();
     }
     
+    public function txt($pg='default') {
+        $this->layout->loadLayout()->loadUpdates('static_page');
+        Block('content')->setTemplate('static/' . $pg);
+        $this->layout->render();
+    }
+
     /* Demo manual creation of blocks (ie: no layout.xml) 
      * You still need the layout library in order to use render engines
      * 

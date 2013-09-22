@@ -4,6 +4,6 @@
 */
 
 $config = array (
-    'layout_version' => '0.1'
+    'layout_version' => 'CONFIG-1.0'
 );
 			
