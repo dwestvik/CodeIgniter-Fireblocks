@@ -59,8 +59,15 @@ class Block_abstract {
 
     /** @var array Attributes from <block> tag in layout.xml */
     protected $_attr = array();
-    
+
+    /** @var CI_Session Reference to CI Native sessions */
     protected $_session = NULL;
+
+    // Constant - Reserved data value names.
+    protected $_noset = array('data','name','alias','layoutlib','parent','child');
+    
+    protected $_noget = array('data','child','childhtml');
+    
 
     public function   __construct() {
         //parent::__construct();
@@ -219,6 +226,13 @@ class Block_abstract {
 		return $this;
     }
 
+    public function setEnabled($state) {
+        $this->_enabled = $state;
+        return $this;
+    }
+
+    public function getEnabled() {return $this->_enabled; }    
+
     /** @return bool Is block enabled */
     public function isEnabled() {return $this->_enabled; }
 
@@ -262,13 +276,42 @@ class Block_abstract {
             $this->renderChild($child);
         }
     }
-    
-    // Try to resolve data value, if not, pass to model to resolve
+
+ /**
+     * Magic get value. 
+     * Try to resolve data value by calling getter. 
+     * Allows child classes to handle via 'getVarname()'.
+     * defaults to __call handler.
+     * 
+     * @param string $name
+     * @return mixed
+     */
     public function __get($name) {
-        $value = $this->getData($name);
-        //if($value==null) $value = parent::__get($name);
+        //$value = $this->getData($name);
+        $value = "[invalid property:$name]";
+        if(!in_array(strtolower($name), $this->_noget)) {        
+            $method = 'get'.ucfirst($name);
+            $value = $this->$method($name);
+        }
+        
         return $value;
     }
+    
+    /**
+     * Magic setter method ($B->varname = value)
+     * Try to resolve to setter method. which will use __call handler by default
+     * 
+     * @param string $name
+     * @param mixed $value
+     */
+    public function __set($name,$value) {
+        //$this->setData($name,$value);
+        if(!in_array(strtolower($name), $this->_noset)) {
+            $method = 'set'.ucfirst($name);
+            $this->$method($value);  
+        }
+    }
+    
 
     // Primary Data Setters and Getters
     public function setData($name,$val) {
