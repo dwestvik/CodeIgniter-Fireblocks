@@ -27,7 +27,7 @@ Code contained in third_party/layout. Demo controller and layout/model.
 
 [See wiki for developer guide](https://github.com/dwestvik/CodeIgniter-Fireblocks/wiki)
 
-#### Not Safe!
+#### Notice
 
 I'm sure there are areas in the code that are not ready for public sites.
 This was originally written to host internal sites where trusted people controlled the content.
